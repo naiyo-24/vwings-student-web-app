@@ -1,0 +1,17 @@
+{
+  "name": "VWings24x7 Student Portal",
+  "short_name": "VWings24x7",
+  "description": "VWings24x7 Aviation Institute Student Portal",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#2D0B51",
+  "theme_color": "#B6007D",
+  "icons": [
+    {
+      "src": "/assets/V-Wings_Logo_nobg.png",
+      "sizes": "192x192 512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
