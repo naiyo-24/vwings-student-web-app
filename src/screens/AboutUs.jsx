@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Flag, Eye, Globe, Phone, Mail, MapPin } from 'lucide-react';
+import { Flag, Eye, Globe, Phone, Mail, MapPin, Award, Users, BookOpen, Target, Sparkles, Heart } from 'lucide-react';
+import './AboutUs.css';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -24,92 +25,124 @@ const AboutUs = () => {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      style={{ maxWidth: '900px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '24px', paddingBottom: '40px' }}
+      style={{ width: '100%', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '32px', paddingBottom: '60px' }}
     >
-      <motion.div variants={itemVariants} className="glass-panel" style={{ padding: '32px' }}>
-        <h2 style={{ color: 'var(--primary-yellow)', marginBottom: '8px', fontSize: '1.8rem' }}>VWINGS24x7</h2>
-        <p style={{ color: 'var(--text-main)', marginBottom: '16px' }}>Empowering Teachers, Enriching Minds</p>
-        <div style={{ display: 'flex', gap: '12px' }}>
-          <motion.div whileHover={{ scale: 1.05 }} style={{ background: 'rgba(255,255,255,0.1)', padding: '6px 12px', borderRadius: '8px', fontWeight: 'bold' }}>48 Courses</motion.div>
-          <motion.div whileHover={{ scale: 1.05 }} style={{ background: 'rgba(255,255,255,0.1)', padding: '6px 12px', borderRadius: '8px', fontWeight: 'bold' }}>24 Partners</motion.div>
+      {/* Hero Section */}
+      <motion.div variants={itemVariants} className="about-hero-container">
+        <div style={{ position: 'absolute', top: '-20%', left: '-10%', width: '300px', height: '300px', background: 'radial-gradient(circle, rgba(245, 195, 0, 0.2) 0%, transparent 70%)', filter: 'blur(40px)', zIndex: 0 }} />
+        <div style={{ position: 'absolute', bottom: '-20%', right: '-10%', width: '300px', height: '300px', background: 'radial-gradient(circle, rgba(236, 72, 153, 0.2) 0%, transparent 70%)', filter: 'blur(40px)', zIndex: 0 }} />
+        
+        <div style={{ position: 'relative', zIndex: 1 }}>
+          <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 0.2, type: 'spring' }} style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '8px 16px', background: 'rgba(245, 195, 0, 0.15)', borderRadius: '20px', color: 'var(--primary-yellow)', fontWeight: 'bold', marginBottom: '24px' }}>
+            <Sparkles size={16} /> Welcome to VWings24x7
+          </motion.div>
+          <h1 className="about-hero-title">
+            Empowering Educators,<br/>Enriching Minds
+          </h1>
+          <p style={{ fontSize: '1.2rem', color: 'rgba(255,255,255,0.7)', maxWidth: '600px', margin: '0 auto' }}>
+            We are dedicated to providing world-class resources, training, and support to transform the future of education.
+          </p>
         </div>
       </motion.div>
 
-      <motion.div variants={itemVariants} className="glass-panel" style={{ padding: '32px' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', marginBottom: '40px' }}>
-          <motion.div whileHover={{ x: 10 }} style={{ display: 'flex', gap: '16px', transition: '0.2s' }}>
-            <div style={{ background: 'rgba(255,255,255,0.1)', width: '48px', height: '48px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Flag color="var(--primary-yellow)" />
+      {/* Stats Grid */}
+      <motion.div variants={itemVariants} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '24px' }}>
+        {[
+          { icon: Users, label: 'Active Partners', value: '24+', color: '#3b82f6' },
+          { icon: Award, label: 'Years Experience', value: '10+', color: '#10b981' },
+          { icon: Target, label: 'Placement Rate', value: '92%', color: '#f59e0b' },
+          { icon: BookOpen, label: 'Premium Courses', value: '48+', color: '#ec4899' }
+        ].map((stat, idx) => (
+          <motion.div key={idx} whileHover={{ y: -5, scale: 1.02 }} className="glass-card" style={{ padding: '24px', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px', borderTop: `2px solid ${stat.color}40` }}>
+            <div style={{ width: '60px', height: '60px', borderRadius: '16px', background: `${stat.color}15`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <stat.icon size={28} color={stat.color} />
             </div>
             <div>
-              <h3 style={{ marginBottom: '8px' }}>Mission</h3>
-              <p>Provide quality teacher training and resources.</p>
+              <h2 style={{ fontSize: '2rem', margin: '0 0 4px 0', color: 'white', fontWeight: 'bold' }}>{stat.value}</h2>
+              <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px' }}>{stat.label}</p>
             </div>
           </motion.div>
-          <motion.div whileHover={{ x: 10 }} style={{ display: 'flex', gap: '16px', transition: '0.2s' }}>
-            <div style={{ background: 'rgba(255,255,255,0.1)', width: '48px', height: '48px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Eye color="var(--primary-yellow)" />
-            </div>
-            <div>
-              <h3 style={{ marginBottom: '8px' }}>Vision</h3>
-              <p>Be the leading platform for teacher excellence.</p>
-            </div>
-          </motion.div>
-        </div>
-
-        <div style={{ display: 'flex', justifyContent: 'space-between', textAlign: 'center', borderTop: '1px solid var(--border)', paddingTop: '32px', flexWrap: 'wrap', gap: '16px' }}>
-          <motion.div whileHover={{ scale: 1.1 }} style={{ flex: 1 }}>
-            <h3 style={{ color: 'var(--text-main)', fontSize: '1.5rem' }}>24</h3>
-            <p style={{ fontSize: '0.8rem' }}>Partners</p>
-          </motion.div>
-          <motion.div whileHover={{ scale: 1.1 }} style={{ flex: 1 }}>
-            <h3 style={{ color: 'var(--text-main)', fontSize: '1.5rem' }}>10y</h3>
-            <p style={{ fontSize: '0.8rem' }}>Experience</p>
-          </motion.div>
-          <motion.div whileHover={{ scale: 1.1 }} style={{ flex: 1 }}>
-            <h3 style={{ color: 'var(--text-main)', fontSize: '1.5rem' }}>92%</h3>
-            <p style={{ fontSize: '0.8rem' }}>Placement</p>
-          </motion.div>
-          <motion.div whileHover={{ scale: 1.1 }} style={{ flex: 1 }}>
-            <h3 style={{ color: 'var(--text-main)', fontSize: '1.5rem' }}>48</h3>
-            <p style={{ fontSize: '0.8rem' }}>Courses</p>
-          </motion.div>
-        </div>
+        ))}
       </motion.div>
 
-      <motion.div variants={itemVariants} className="glass-panel" style={{ padding: '32px', display: 'flex', alignItems: 'center', gap: '24px' }}>
-        <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="Director" style={{ width: '80px', height: '80px', borderRadius: '50%', objectFit: 'cover' }} />
+      {/* Mission & Vision Split */}
+      <div className="about-mission-grid">
+        <motion.div variants={itemVariants} whileHover={{ scale: 1.02 }} className="glass-card" style={{ padding: '40px', position: 'relative', overflow: 'hidden' }}>
+          <div style={{ position: 'absolute', top: 0, right: 0, width: '150px', height: '150px', background: 'radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%)', zIndex: 0 }} />
+          <div style={{ position: 'relative', zIndex: 1 }}>
+            <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(59, 130, 246, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px' }}>
+              <Flag color="#3b82f6" size={24} />
+            </div>
+            <h2 style={{ fontSize: '1.8rem', marginBottom: '16px', color: 'white' }}>Our Mission</h2>
+            <p style={{ color: 'var(--text-muted)', lineHeight: '1.7', fontSize: '1.05rem' }}>
+              To provide unparalleled quality in teacher training and educational resources. We strive to create an ecosystem where educators can thrive, innovate, and make a lasting impact on students worldwide.
+            </p>
+          </div>
+        </motion.div>
+
+        <motion.div variants={itemVariants} whileHover={{ scale: 1.02 }} className="glass-card" style={{ padding: '40px', position: 'relative', overflow: 'hidden' }}>
+          <div style={{ position: 'absolute', top: 0, right: 0, width: '150px', height: '150px', background: 'radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%)', zIndex: 0 }} />
+          <div style={{ position: 'relative', zIndex: 1 }}>
+            <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(16, 185, 129, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px' }}>
+              <Eye color="#10b981" size={24} />
+            </div>
+            <h2 style={{ fontSize: '1.8rem', marginBottom: '16px', color: 'white' }}>Our Vision</h2>
+            <p style={{ color: 'var(--text-muted)', lineHeight: '1.7', fontSize: '1.05rem' }}>
+              To be the globally recognized, leading platform for teacher excellence. We envision a world where every educator is empowered with the tools they need to unlock the full potential of every learner.
+            </p>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Leadership Quote */}
+      <motion.div variants={itemVariants} className="glass-card about-leadership-container">
+        <motion.div whileHover={{ scale: 1.1, rotate: 5 }} style={{ padding: '4px', background: 'linear-gradient(135deg, var(--primary-yellow) 0%, #ec4899 100%)', borderRadius: '50%' }}>
+          <img src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="Director" style={{ width: '100px', height: '100px', borderRadius: '50%', objectFit: 'cover', border: '4px solid #1e1b4b' }} />
+        </motion.div>
         <div style={{ flex: 1 }}>
-          <h3 style={{ marginBottom: '8px' }}>Dr. A. Director</h3>
-          <p>"Our commitment is to uplift educators through practical training and continuous support."</p>
-        </div>
-        <div style={{ alignSelf: 'flex-end', fontStyle: 'italic', color: 'var(--text-muted)' }}>
-          — Director
+          <div style={{ marginBottom: '16px' }}>
+            <Heart size={24} color="#ec4899" style={{ opacity: 0.5, marginBottom: '8px' }} />
+            <p style={{ fontSize: '1.25rem', color: 'white', fontStyle: 'italic', lineHeight: '1.6', margin: 0 }}>
+              "Our ultimate commitment is to uplift educators through highly practical training, unwavering continuous support, and a community built on shared excellence."
+            </p>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <div style={{ width: '32px', height: '2px', background: 'var(--primary-yellow)' }} />
+            <div>
+              <h4 style={{ margin: 0, color: 'var(--primary-yellow)', fontSize: '1.1rem' }}>Dr. A. Director</h4>
+              <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Founder & CEO</span>
+            </div>
+          </div>
         </div>
       </motion.div>
 
-      <motion.div variants={itemVariants} className="glass-panel" style={{ padding: '32px' }}>
-        <h3 style={{ marginBottom: '24px' }}>Contact Us</h3>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      {/* Contact Section */}
+      <motion.div variants={itemVariants} className="glass-card" style={{ padding: '40px' }}>
+        <h2 style={{ fontSize: '1.8rem', marginBottom: '32px', color: 'white', textAlign: 'center' }}>Get In Touch</h2>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '24px' }}>
           {[
-            { icon: Globe, text: "https://vwings24x7.example" },
-            { icon: Phone, text: "+1-555-0100" },
-            { icon: Mail, text: "contact@vwings24x7.example" },
-            { icon: MapPin, text: "123 Education Lane, City, Country" }
+            { icon: Globe, title: 'Website', text: "vwings24x7.com" },
+            { icon: Phone, title: 'Phone', text: "+1-555-0100" },
+            { icon: Mail, title: 'Email', text: "contact@vwings24x7.com" },
+            { icon: MapPin, title: 'Location', text: "123 Education Lane" }
           ].map((item, index) => (
             <motion.div 
               key={index} 
-              whileHover={{ x: 10, color: 'var(--primary-yellow)' }}
-              style={{ display: 'flex', alignItems: 'center', gap: '16px', color: 'var(--text-muted)', cursor: 'pointer' }}
+              whileHover={{ y: -5, background: 'rgba(255,255,255,0.08)' }}
+              style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', padding: '24px', background: 'rgba(255,255,255,0.03)', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)', textAlign: 'center', cursor: 'pointer', transition: 'all 0.3s' }}
             >
-              <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <item.icon size={16} color="var(--primary-yellow)" />
+              <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(245, 195, 0, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <item.icon size={20} color="var(--primary-yellow)" />
               </div>
-              <span>{item.text}</span>
+              <div>
+                <h4 style={{ margin: '0 0 4px 0', color: 'white' }}>{item.title}</h4>
+                <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>{item.text}</span>
+              </div>
             </motion.div>
           ))}
         </div>
       </motion.div>
+
     </motion.div>
   );
 };

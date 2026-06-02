@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { LogIn, Eye, EyeOff, AlertCircle, Loader } from 'lucide-react';
+import { LogIn, Eye, EyeOff, Loader } from 'lucide-react';
+import { useToast } from '../components/ToastContext';
 
 const API_BASE = 'http://localhost:8000';
 
 const Login = ({ onLogin }) => {
+  const toast = useToast();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -25,15 +27,15 @@ const Login = ({ onLogin }) => {
 
       if (response.ok) {
         const studentData = await response.json();
-        // Persist user in localStorage for session persistence
         localStorage.setItem('vwings_student', JSON.stringify(studentData));
+        toast.success('Login successful! Welcome to your academy.');
         onLogin(studentData);
       } else {
         const errData = await response.json().catch(() => ({}));
-        setError(errData.detail || 'Invalid email or password. Please try again.');
+        toast.error(errData.detail || 'Invalid email or password. Please try again.');
       }
     } catch (err) {
-      setError('Unable to connect to server. Please check your connection.');
+      toast.error('Unable to connect to server. Please check your connection.');
     } finally {
       setLoading(false);
     }
@@ -70,26 +72,7 @@ const Login = ({ onLogin }) => {
         </div>
 
         <form onSubmit={handleSubmit}>
-          {/* Error Message */}
-          <AnimatePresence>
-            {error && (
-              <motion.div
-                initial={{ opacity: 0, height: 0, marginBottom: 0 }}
-                animate={{ opacity: 1, height: 'auto', marginBottom: '16px' }}
-                exit={{ opacity: 0, height: 0, marginBottom: 0 }}
-                style={{
-                  display: 'flex', alignItems: 'center', gap: '10px',
-                  padding: '12px 16px', borderRadius: '10px',
-                  background: 'rgba(239, 68, 68, 0.15)',
-                  border: '1px solid rgba(239, 68, 68, 0.4)',
-                  color: '#fca5a5', fontSize: '0.875rem'
-                }}
-              >
-                <AlertCircle size={16} style={{ flexShrink: 0 }} />
-                {error}
-              </motion.div>
-            )}
-          </AnimatePresence>
+
 
           <div className="input-group">
             <label>Email Address</label>
@@ -97,7 +80,7 @@ const Login = ({ onLogin }) => {
               type="email"
               placeholder="student@vwings.com"
               value={email}
-              onChange={(e) => { setEmail(e.target.value); setError(''); }}
+              onChange={(e) => setEmail(e.target.value)}
               required
               disabled={loading}
               autoComplete="email"
@@ -110,7 +93,7 @@ const Login = ({ onLogin }) => {
               type={showPassword ? 'text' : 'password'}
               placeholder="••••••••"
               value={password}
-              onChange={(e) => { setPassword(e.target.value); setError(''); }}
+              onChange={(e) => setPassword(e.target.value)}
               required
               disabled={loading}
               autoComplete="current-password"

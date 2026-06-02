@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { BookOpen, UserCheck, Calendar, Bell } from 'lucide-react';
+import { BookOpen, UserCheck, Calendar, Bell, CreditCard, ArrowRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import WelcomeModalNew from '../components/WelcomeModalNew';
 import CarouselCard from '../components/CarouselCard';
 import AdBanner from '../components/AdBanner';
-import { useAuth } from '../App';
+import { useAuth } from '../AuthContext';
 
 const API_BASE = 'http://localhost:8000';
 
@@ -14,6 +15,8 @@ const Dashboard = () => {
   const [featuredCourses, setFeaturedCourses] = useState([]);
   const [notifications, setNotifications] = useState([]);
   const [classroomsCount, setClassroomsCount] = useState(0);
+  const [feeProfile, setFeeProfile] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Only show modal if they haven't seen it yet this session
@@ -46,6 +49,14 @@ const Dashboard = () => {
           if (classRes.ok) {
             const classData = await classRes.json();
             setClassroomsCount(classData.length);
+          }
+          
+          // Fetch Fee Profile
+          if (user.course_availing) {
+            const feeRes = await fetch(`${API_BASE}/api/fees/profile/${user.student_id}`);
+            if (feeRes.ok) {
+              setFeeProfile(await feeRes.json());
+            }
           }
         }
       } catch (err) {
@@ -104,7 +115,42 @@ const Dashboard = () => {
         </motion.div>
       </div>
 
-      <motion.div className="glass-panel" style={{ padding: '24px' }} variants={itemVariants}>
+      {user?.course_availing && feeProfile && (
+        <motion.div className="glass-card" style={{ padding: '24px', marginTop: '32px', display: 'flex', flexDirection: 'column', gap: '16px' }} variants={itemVariants}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <CreditCard size={28} color="var(--primary-yellow)" />
+              <div>
+                <h3 style={{ margin: 0 }}>Fee Overview</h3>
+                <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--text-muted)' }}>{user.course_name || user.course_availing}</p>
+              </div>
+            </div>
+            <button className="btn-primary" onClick={() => navigate('/fees')} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 20px' }}>
+              Make Payment <ArrowRight size={18} />
+            </button>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', marginTop: '8px' }}>
+            <div style={{ padding: '16px', background: 'rgba(255,255,255,0.05)', borderRadius: '12px' }}>
+              <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.9rem' }}>Total Fees</p>
+              <h4 style={{ margin: '4px 0 0 0', fontSize: '1.2rem' }}>₹{feeProfile.total_fee || 0}</h4>
+            </div>
+            <div style={{ padding: '16px', background: 'rgba(16, 185, 129, 0.1)', borderRadius: '12px', border: '1px solid rgba(16, 185, 129, 0.2)' }}>
+              <p style={{ margin: 0, color: '#10b981', fontSize: '0.9rem' }}>Paid Amount</p>
+              <h4 style={{ margin: '4px 0 0 0', fontSize: '1.2rem', color: '#10b981' }}>₹{feeProfile.total_paid || 0}</h4>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '8px', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                <span>Online: <strong style={{ color: '#10b981' }}>₹{feeProfile.online_paid || 0}</strong></span>
+                <span>Cash: <strong style={{ color: '#f59e0b' }}>₹{feeProfile.cash_paid || 0}</strong></span>
+              </div>
+            </div>
+            <div style={{ padding: '16px', background: 'rgba(239, 68, 68, 0.1)', borderRadius: '12px', border: '1px solid rgba(239, 68, 68, 0.2)' }}>
+              <p style={{ margin: 0, color: '#ef4444', fontSize: '0.9rem' }}>Pending Fees</p>
+              <h4 style={{ margin: '4px 0 0 0', fontSize: '1.2rem', color: '#ef4444' }}>₹{Math.max(0, (feeProfile.total_fee || 0) - (feeProfile.total_paid || 0))}</h4>
+            </div>
+          </div>
+        </motion.div>
+      )}
+
+      <motion.div className="glass-panel" style={{ padding: '24px', marginTop: '32px' }} variants={itemVariants}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
           <Bell size={24} color="var(--primary-yellow)" />
           <h3>Recent Notifications</h3>

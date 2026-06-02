@@ -1,7 +1,7 @@
 import React, { useState, createContext, useContext } from 'react';
 import { Routes, Route, Navigate, useLocation, Link } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
-import { BookOpen, Home, CreditCard, Bell, HelpCircle, User, LogOut, DownloadCloud, Menu, X } from 'lucide-react';
+import { BookOpen, Home, CreditCard, HelpCircle, User, LogOut, DownloadCloud, Menu, X } from 'lucide-react';
+import { AnimatePresence } from 'framer-motion';
 
 import './App.css';
 
@@ -17,12 +17,11 @@ import AboutUs from './screens/AboutUs';
 import Footer from './components/Footer';
 import BgParticlesComponent from './components/BgParticlesComponent';
 import SplashScreen from './components/SplashScreen';
+import NotificationBell from './components/NotificationBell';
+
+import { AuthContext, useAuth } from './AuthContext';
 
 const API_BASE = 'http://localhost:8000';
-
-// ─── Auth Context ────────────────────────────────────────────────────────────
-export const AuthContext = createContext(null);
-export const useAuth = () => useContext(AuthContext);
 
 // ─── Sidebar ─────────────────────────────────────────────────────────────────
 const Sidebar = ({ handleLogout, handleInstallApp, showInstallButton, isMobileMenuOpen, setIsMobileMenuOpen }) => {
@@ -114,37 +113,12 @@ const Sidebar = ({ handleLogout, handleInstallApp, showInstallButton, isMobileMe
 // ─── Topbar ───────────────────────────────────────────────────────────────────
 const Topbar = ({ toggleMobileMenu }) => {
   const { user } = useAuth();
-  const [showNotifications, setShowNotifications] = useState(false);
-  const [notifications, setNotifications] = useState([]);
-  const [unreadCount, setUnreadCount] = useState(0);
 
   const firstName = user?.full_name ? user.full_name.split(' ')[0] : 'Student';
   const initials = user?.full_name
     ? user.full_name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()
     : 'ST';
   const photoUrl = user?.profile_photo ? `${API_BASE}/${user.profile_photo}` : null;
-
-  React.useEffect(() => {
-    const fetchNotifications = async () => {
-      try {
-        const res = await fetch(`${API_BASE}/announcements/get-all/role/student`);
-        if (res.ok) {
-          const data = await res.json();
-          const active = data.filter(a => a.active_status);
-          setNotifications(active.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)));
-          setUnreadCount(active.length);
-        }
-      } catch (err) {
-        console.error('Failed to fetch notifications', err);
-      }
-    };
-    fetchNotifications();
-  }, []);
-
-  const handleNotificationClick = () => {
-    setShowNotifications(!showNotifications);
-    setUnreadCount(0);
-  };
 
   return (
     <div className="topbar">
@@ -156,42 +130,8 @@ const Topbar = ({ toggleMobileMenu }) => {
         <button className="mobile-menu-btn" onClick={toggleMobileMenu}>
           <Menu size={24} />
         </button>
-        <div className="user-profile" style={{ position: 'relative' }}>
-          <button className="btn-secondary" onClick={handleNotificationClick} style={{ padding: '10px', borderRadius: '50%', position: 'relative' }}>
-            <Bell size={20} />
-            {unreadCount > 0 && (
-              <span style={{ position: 'absolute', top: '-4px', right: '-4px', background: 'var(--danger)', color: 'white', fontSize: '10px', width: '18px', height: '18px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>
-                {unreadCount}
-              </span>
-            )}
-          </button>
-
-          <AnimatePresence>
-            {showNotifications && (
-              <motion.div
-                initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                className="glass-panel"
-                style={{ position: 'absolute', top: '50px', right: '50px', width: '320px', maxHeight: '400px', overflowY: 'auto', zIndex: 100, padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px', background: 'rgba(15, 23, 42, 0.98)' }}
-              >
-                <h3 style={{ borderBottom: '1px solid var(--border)', paddingBottom: '8px', marginBottom: '4px', fontSize: '1.1rem' }}>Notifications</h3>
-                {notifications.length === 0 ? (
-                  <p style={{ textAlign: 'center', color: 'var(--text-muted)', padding: '16px 0' }}>No new notifications.</p>
-                ) : (
-                  notifications.map(note => (
-                    <div key={note.announcement_id} style={{ padding: '12px', background: 'rgba(255,255,255,0.05)', borderRadius: '8px', borderLeft: '3px solid var(--primary-yellow)' }}>
-                      <h4 style={{ fontSize: '0.95rem', marginBottom: '4px', color: 'var(--primary-yellow)' }}>{note.headline}</h4>
-                      <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', margin: 0 }}>{note.description}</p>
-                      <small style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.4)', marginTop: '6px', display: 'block' }}>
-                        {new Date(note.created_at).toLocaleDateString()}
-                      </small>
-                    </div>
-                  ))
-                )}
-              </motion.div>
-            )}
-          </AnimatePresence>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <NotificationBell role="student" userId={user?.student_id || "student"} />
 
           <Link to="/profile" style={{ textDecoration: 'none' }}>
             {photoUrl ? (
@@ -201,8 +141,8 @@ const Topbar = ({ toggleMobileMenu }) => {
             )}
           </Link>
         </div>
+        </div>
       </div>
-    </div>
   );
 };
 

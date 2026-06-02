@@ -92,6 +92,13 @@
   z-index: 9999 !important;
 }
 
+.topbar-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+}
+
 .user-profile {
   display: flex;
   align-items: center;
@@ -247,7 +254,7 @@
   }
 
   .topbar {
-    flex-direction: column;
+    flex-direction: column-reverse;
     align-items: flex-start;
     gap: 16px;
     margin-bottom: 24px;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { useAuth } from '../App';
+import { useAuth } from '../AuthContext';
 
 const API_BASE = 'http://localhost:8000';
 

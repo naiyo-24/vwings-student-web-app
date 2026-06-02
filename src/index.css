@@ -19,9 +19,9 @@
   --gradient-button: linear-gradient(135deg, #F5C300 0%, #FFD700 100%);
   
   /* Glass */
-  --surface: rgba(55, 14, 98, 0.3);
-  --surface-hover: rgba(55, 14, 98, 0.5);
-  --border: rgba(255, 255, 255, 0.2);
+  --surface: rgba(255, 255, 255, 0.05);
+  --surface-hover: rgba(255, 255, 255, 0.1);
+  --border: rgba(255, 255, 255, 0.1);
   --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
   --glass-blur: blur(12px);
   
