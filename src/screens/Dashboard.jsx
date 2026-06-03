@@ -90,7 +90,7 @@ const Dashboard = () => {
         <motion.div className="glass-card stat-card" variants={itemVariants}>
           <div className="stat-header">
             <span>Enrolled Courses</span>
-            <BookOpen size={24} color="var(--primary-yellow)" />
+            <BookOpen size={24} color="var(--primary)" />
           </div>
           <div className="stat-value text-gradient">{user?.course_availing ? 1 : 0}</div>
           <p>Current active enrollments</p>
@@ -119,7 +119,7 @@ const Dashboard = () => {
         <motion.div className="glass-card" style={{ padding: '24px', marginTop: '32px', display: 'flex', flexDirection: 'column', gap: '16px' }} variants={itemVariants}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <CreditCard size={28} color="var(--primary-yellow)" />
+              <CreditCard size={28} color="var(--primary)" />
               <div>
                 <h3 style={{ margin: 0 }}>Fee Overview</h3>
                 <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--text-muted)' }}>{user.course_name || user.course_availing}</p>
@@ -130,7 +130,7 @@ const Dashboard = () => {
             </button>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', marginTop: '8px' }}>
-            <div style={{ padding: '16px', background: 'rgba(255,255,255,0.05)', borderRadius: '12px' }}>
+            <div style={{ padding: '16px', background: 'var(--surface-hover)', borderRadius: '12px' }}>
               <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.9rem' }}>Total Fees</p>
               <h4 style={{ margin: '4px 0 0 0', fontSize: '1.2rem' }}>₹{feeProfile.total_fee || 0}</h4>
             </div>
@@ -152,18 +152,18 @@ const Dashboard = () => {
 
       <motion.div className="glass-panel" style={{ padding: '24px', marginTop: '32px' }} variants={itemVariants}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '24px' }}>
-          <Bell size={24} color="var(--primary-yellow)" />
+          <Bell size={24} color="var(--primary)" />
           <h3>Recent Notifications</h3>
         </div>
         
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           {notifications.length > 0 ? notifications.map((note) => (
-            <div key={note.announcement_id} style={{ padding: '16px', background: 'rgba(255,255,255,0.05)', borderRadius: '12px', display: 'flex', alignItems: 'center', gap: '16px' }}>
-              <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--primary-yellow)' }}></div>
+            <div key={note.announcement_id} style={{ padding: '16px', background: 'var(--surface-hover)', borderRadius: '12px', display: 'flex', alignItems: 'center', gap: '16px' }}>
+              <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--primary)' }}></div>
               <div>
                 <h4 style={{ marginBottom: '4px' }}>{note.headline}</h4>
                 <p style={{ fontSize: '0.9rem' }}>{note.description}</p>
-                <small style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.4)', marginTop: '4px', display: 'block' }}>
+                <small style={{ fontSize: '0.7rem', color: 'var(--text-muted)', marginTop: '4px', display: 'block' }}>
                   {new Date(note.created_at).toLocaleDateString()}
                 </small>
               </div>

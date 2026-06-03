@@ -18,7 +18,7 @@ const Profile = () => {
   });
 
   if (!user) {
-    return <div style={{ color: 'white', padding: '32px' }}>No profile data found. Please log in again.</div>;
+    return <div style={{ color: 'var(--text-main)', padding: '32px' }}>No profile data found. Please log in again.</div>;
   }
 
   const initials = user.full_name
@@ -103,7 +103,7 @@ const Profile = () => {
               style={{ width: '120px', height: '120px', borderRadius: '50%', objectFit: 'cover', marginBottom: '24px', boxShadow: 'var(--glass-shadow)', border: '3px solid var(--primary-yellow)' }}
             />
           ) : (
-            <div style={{ width: '120px', height: '120px', borderRadius: '50%', background: 'var(--gradient-hero)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '3rem', color: 'white', marginBottom: '24px', boxShadow: 'var(--glass-shadow)', fontWeight: '700' }}>
+            <div style={{ width: '120px', height: '120px', borderRadius: '50%', background: 'var(--gradient-hero)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '3rem', color: '#FFFFFF', marginBottom: '24px', boxShadow: 'var(--glass-shadow)', fontWeight: '700' }}>
               {initials}
             </div>
           )}

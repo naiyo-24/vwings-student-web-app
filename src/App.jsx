@@ -18,6 +18,7 @@ import Footer from './components/Footer';
 import BgParticlesComponent from './components/BgParticlesComponent';
 import SplashScreen from './components/SplashScreen';
 import NotificationBell from './components/NotificationBell';
+import GlobalSearch from './components/GlobalSearch';
 
 import { AuthContext, useAuth } from './AuthContext';
 
@@ -49,13 +50,11 @@ const Sidebar = ({ handleLogout, handleInstallApp, showInstallButton, isMobileMe
         <div className="brand" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <img src="/assets/V-Wings_Logo_nobg.png" alt="VWings24x7 Logo" style={{ width: '72px', height: '72px', objectFit: 'contain' }} />
-            <span style={{ color: 'var(--primary-yellow)', fontSize: '20px', fontWeight: '800', letterSpacing: '0.5px' }}>VWings24x7</span>
+            <span style={{ color: '#FFFFFF', fontSize: '20px', fontWeight: '800', letterSpacing: '0.5px' }}>VWings24x7</span>
           </div>
-          {isMobileMenuOpen && (
-            <button className="mobile-menu-btn" onClick={() => setIsMobileMenuOpen(false)} style={{ display: 'block' }}>
-              <X size={24} />
-            </button>
-          )}
+          <button className="sidebar-close-btn" onClick={() => setIsMobileMenuOpen(false)}>
+            <X size={24} />
+          </button>
         </div>
 
         {/* Student info in sidebar */}
@@ -65,7 +64,7 @@ const Sidebar = ({ handleLogout, handleInstallApp, showInstallButton, isMobileMe
               <img
                 src={`${API_BASE}/${user.profile_photo}`}
                 alt="Profile"
-                style={{ width: '40px', height: '40px', borderRadius: '50%', objectFit: 'cover', border: '2px solid var(--primary-yellow)' }}
+                style={{ width: '40px', height: '40px', borderRadius: '50%', objectFit: 'cover', border: '2px solid var(--primary)' }}
               />
             ) : (
               <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'var(--gradient-hero)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1rem', color: 'white', fontWeight: '700', flexShrink: 0 }}>
@@ -73,8 +72,8 @@ const Sidebar = ({ handleLogout, handleInstallApp, showInstallButton, isMobileMe
               </div>
             )}
             <div style={{ overflow: 'hidden' }}>
-              <p style={{ fontWeight: '600', fontSize: '0.875rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', color: 'var(--text)' }}>{user.full_name}</p>
-              <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{user.student_id}</p>
+              <p style={{ fontWeight: '600', fontSize: '0.875rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', color: '#FFFFFF' }}>{user.full_name}</p>
+              <p style={{ fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.7)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{user.student_id}</p>
             </div>
           </div>
         )}
@@ -100,9 +99,9 @@ const Sidebar = ({ handleLogout, handleInstallApp, showInstallButton, isMobileMe
               Install App
             </button>
           )}
-          <button className="nav-item" onClick={handleLogout} style={{ background: 'transparent', border: 'none', width: '100%', cursor: 'pointer', textAlign: 'left', marginTop: showInstallButton ? '8px' : '0' }}>
-            <LogOut size={20} color="var(--danger)" />
-            <span style={{ color: 'var(--danger)' }}>Logout</span>
+          <button className="nav-item logout-button" onClick={handleLogout} style={{ marginTop: showInstallButton ? '8px' : '0' }}>
+            <LogOut size={20} />
+            <span>Logout</span>
           </button>
         </div>
       </div>
@@ -131,11 +130,12 @@ const Topbar = ({ toggleMobileMenu }) => {
           <Menu size={24} />
         </button>
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <GlobalSearch />
           <NotificationBell role="student" userId={user?.student_id || "student"} />
 
           <Link to="/profile" style={{ textDecoration: 'none' }}>
             {photoUrl ? (
-              <img src={photoUrl} alt="Profile" style={{ width: '40px', height: '40px', borderRadius: '50%', objectFit: 'cover', cursor: 'pointer', border: '2px solid var(--primary-yellow)' }} />
+              <img src={photoUrl} alt="Profile" style={{ width: '40px', height: '40px', borderRadius: '50%', objectFit: 'cover', cursor: 'pointer', border: '2px solid var(--primary)' }} />
             ) : (
               <div className="avatar" style={{ cursor: 'pointer' }}>{initials}</div>
             )}

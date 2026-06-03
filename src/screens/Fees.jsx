@@ -228,7 +228,7 @@ const Fees = () => {
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', marginTop: '32px' }}>
+      <div className="dashboard-grid" style={{ marginTop: '32px', marginBottom: 0 }}>
         
         {/* Payment Form */}
         <div className="glass-card" style={{ padding: '24px' }}>
@@ -261,12 +261,12 @@ const Fees = () => {
                   style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '12px', padding: '12px 16px', color: 'var(--text-main)' }}
                 >
                   {pendingFee > 0 && (
-                    <option value="full" style={{ background: '#1e1b4b', color: 'white' }}>
+                    <option value="full" style={{ background: 'var(--surface)', color: 'var(--text-main)' }}>
                       {paidInstallments.length === 0 ? "Full Payment" : "Pay Remaining Balance"}
                     </option>
                   )}
                   {availableInstallments.map(i => (
-                    <option key={i} value={`installment_${i}`} style={{ background: '#1e1b4b', color: 'white' }}>Installment #{i}</option>
+                    <option key={i} value={`installment_${i}`} style={{ background: 'var(--surface)', color: 'var(--text-main)' }}>Installment #{i}</option>
                   ))}
                 </select>
               </div>
@@ -297,7 +297,7 @@ const Fees = () => {
         </div>
 
         {/* History Table */}
-        <div className="glass-card" style={{ padding: '24px' }}>
+        <div className="glass-card" style={{ padding: '24px', minWidth: 0, overflow: 'hidden' }}>
           <h3 style={{ marginBottom: '16px' }}>Payment History</h3>
           {loading ? (
             <p style={{ color: 'var(--text-muted)' }}>Loading payment records...</p>

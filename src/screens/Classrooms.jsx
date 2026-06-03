@@ -113,10 +113,10 @@ const Classrooms = () => {
 
   if (activeClass) {
     return (
-      <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="glass-panel" style={{ height: 'calc(100vh - 120px)', display: 'flex', flexDirection: 'column' }}>
+      <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="glass-panel chat-container" style={{ display: 'flex', flexDirection: 'column' }}>
         <div style={{ padding: '20px', borderBottom: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-            <button onClick={() => setActiveClass(null)} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: 'white' }}><ArrowLeft /></button>
+            <button onClick={() => setActiveClass(null)} style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: 'var(--text-main)' }}><ArrowLeft /></button>
             <div>
               <h3 style={{ margin: 0 }}>{activeClass.class_name}</h3>
               <p style={{ margin: 0, fontSize: '0.8rem', color: 'var(--secondary)' }}>{activeClass.class_description || 'Live Session'}</p>
@@ -143,17 +143,17 @@ const Classrooms = () => {
           {chatHistory.map((msg, i) => {
             const isMe = msg.sender_id === studentId;
             return (
-              <div key={i} style={{ alignSelf: isMe ? 'flex-end' : 'flex-start', background: isMe ? 'var(--primary-yellow)' : 'var(--surface)', padding: '12px 16px', borderRadius: '12px', maxWidth: '70%', color: isMe ? 'var(--deep-navy)' : 'white' }}>
-                <p style={{ margin: '0 0 4px 0', fontSize: '0.8rem', fontWeight: 'bold', color: isMe ? 'var(--deep-navy)' : 'var(--primary-yellow)' }}>{isMe ? 'You' : msg.sender_role || 'Instructor'}</p>
+              <div key={i} style={{ alignSelf: isMe ? 'flex-end' : 'flex-start', background: isMe ? 'var(--primary)' : 'var(--surface)', padding: '12px 16px', borderRadius: '12px', maxWidth: '70%', color: isMe ? 'white' : 'var(--text-main)' }}>
+                <p style={{ margin: '0 0 4px 0', fontSize: '0.8rem', fontWeight: 'bold', color: isMe ? 'white' : 'var(--primary)' }}>{isMe ? 'You' : msg.sender_role || 'Instructor'}</p>
                 
                 {msg.attachment_url && msg.attachment_type === 'image' && (
                   <img src={`http://localhost:8000/${msg.attachment_url.replace(/\\/g, '/')}`} alt="attachment" style={{ maxWidth: '100%', borderRadius: '8px', marginBottom: '8px' }} />
                 )}
                 {msg.attachment_url && msg.attachment_type === 'pdf' && (
-                  <a href={`http://localhost:8000/${msg.attachment_url.replace(/\\/g, '/')}`} target="_blank" rel="noopener noreferrer" style={{ display: 'block', marginBottom: '8px', color: isMe ? 'var(--deep-navy)' : 'var(--primary-yellow)', textDecoration: 'underline' }}>View PDF Document</a>
+                  <a href={`http://localhost:8000/${msg.attachment_url.replace(/\\/g, '/')}`} target="_blank" rel="noopener noreferrer" style={{ display: 'block', marginBottom: '8px', color: isMe ? 'white' : 'var(--primary)', textDecoration: 'underline' }}>View PDF Document</a>
                 )}
                 {msg.attachment_url && msg.attachment_type === 'file' && (
-                  <a href={`http://localhost:8000/${msg.attachment_url.replace(/\\/g, '/')}`} target="_blank" rel="noopener noreferrer" style={{ display: 'block', marginBottom: '8px', color: isMe ? 'var(--deep-navy)' : 'var(--primary-yellow)', textDecoration: 'underline' }}>Download File</a>
+                  <a href={`http://localhost:8000/${msg.attachment_url.replace(/\\/g, '/')}`} target="_blank" rel="noopener noreferrer" style={{ display: 'block', marginBottom: '8px', color: isMe ? 'white' : 'var(--primary)', textDecoration: 'underline' }}>Download File</a>
                 )}
 
                 <p style={{ margin: 0 }}>{msg.content || msg.text}</p>
@@ -180,7 +180,7 @@ const Classrooms = () => {
               onChange={(e) => setAttachment(e.target.files[0])}
               style={{ display: 'none' }}
             />
-            <button type="button" className="btn-secondary" onClick={() => fileInputRef.current.click()} style={{ borderRadius: '50%', width: '48px', height: '48px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <button type="button" className="btn-secondary" onClick={() => fileInputRef.current.click()} style={{ borderRadius: '50%', width: '48px', height: '48px', flexShrink: 0, padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Upload size={20} />
             </button>
             <input 
@@ -188,9 +188,9 @@ const Classrooms = () => {
               placeholder="Type a message..." 
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              style={{ flex: 1, background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '24px', padding: '12px 20px', color: 'white' }}
+              style={{ flex: 1, background: 'var(--background)', border: '1px solid var(--border)', borderRadius: '24px', padding: '12px 20px', color: 'var(--text-main)', minWidth: 0 }}
             />
-            <button type="submit" className="btn-primary" disabled={uploadingAttachment} style={{ borderRadius: '50%', width: '48px', height: '48px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: uploadingAttachment ? 0.5 : 1 }}>
+            <button type="submit" className="btn-primary" disabled={uploadingAttachment} style={{ borderRadius: '50%', width: '48px', height: '48px', flexShrink: 0, padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: uploadingAttachment ? 0.5 : 1 }}>
               <Send size={20} />
             </button>
           </div>
@@ -219,27 +219,27 @@ const Classrooms = () => {
       <motion.h2 variants={itemVariants} style={{ marginBottom: '24px' }}>My Classrooms</motion.h2>
       {loading ? (
         <div style={{ display: 'flex', justifyContent: 'center', padding: '64px' }}>
-          <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: "linear" }} style={{ width: '40px', height: '40px', border: '4px solid rgba(255,255,255,0.2)', borderTopColor: 'var(--primary-yellow)', borderRadius: '50%' }} />
+          <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: "linear" }} style={{ width: '40px', height: '40px', border: '4px solid var(--border)', borderTopColor: 'var(--primary)', borderRadius: '50%' }} />
         </div>
       ) : classrooms.length === 0 ? (
         <motion.p variants={itemVariants}>You have not been assigned to any classrooms yet.</motion.p>
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           {classrooms.map((cls, i) => (
-            <motion.div key={i} variants={itemVariants} whileHover={{ scale: 1.01, translateX: 5 }} className="glass-card" style={{ padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <div>
-                <h3 style={{ marginBottom: '4px' }}>{cls.class_name}</h3>
-                <p style={{ fontSize: '0.9rem' }}>{cls.class_description || 'No description'}</p>
+            <motion.div key={i} variants={itemVariants} whileHover={{ scale: 1.01, translateX: 5 }} className="glass-card" style={{ padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '16px' }}>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <h3 style={{ marginBottom: '4px', wordBreak: 'break-word' }}>{cls.class_name}</h3>
+                <p style={{ fontSize: '0.9rem', wordBreak: 'break-word' }}>{cls.class_description || 'No description'}</p>
                 {(cls.class_date || cls.class_time) && (
-                  <p style={{ fontSize: '0.85rem', color: 'var(--primary-yellow)', marginTop: '4px' }}>
+                  <p style={{ fontSize: '0.85rem', color: 'var(--primary)', marginTop: '4px' }}>
                     📅 {cls.class_date} {cls.class_time ? `⏰ ${cls.class_time}` : ''}
                   </p>
                 )}
-                <p style={{ fontSize: '0.8rem', color: 'var(--primary-yellow)', marginTop: '4px' }}>
+                <p style={{ fontSize: '0.8rem', color: 'var(--primary)', marginTop: '4px', wordBreak: 'break-word' }}>
                   {cls.teacher_details?.length > 0 ? `Instructor: ${cls.teacher_details[0].full_name || 'N/A'}` : 'Instructor TBA'}
                 </p>
               </div>
-              <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="btn-primary" onClick={() => setActiveClass(cls)} style={{ padding: '8px 16px', borderRadius: '8px' }}>Join Class</motion.button>
+              <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="btn-primary" onClick={() => setActiveClass(cls)} style={{ padding: '8px 16px', borderRadius: '8px', flexShrink: 0, whiteSpace: 'nowrap' }}>Join Class</motion.button>
             </motion.div>
           ))}
         </div>

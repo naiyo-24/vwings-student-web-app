@@ -55,8 +55,8 @@ const Login = ({ onLogin }) => {
             animate={{ scale: 1, opacity: 1 }}
             transition={{ type: 'spring', damping: 15, delay: 0.2 }}
             style={{
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              margin: '0 auto 20px', gap: '16px'
+              display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+              margin: '0 auto 20px', gap: '8px'
             }}
           >
             <img
@@ -64,7 +64,7 @@ const Login = ({ onLogin }) => {
               alt="VWings24x7 Logo"
               style={{ width: '90px', height: '90px', objectFit: 'contain' }}
             />
-            <span style={{ color: 'var(--primary-yellow)', fontSize: '36px', fontWeight: '800', letterSpacing: '1px' }}>
+            <span className="text-gradient" style={{ fontSize: '36px', fontWeight: '800', letterSpacing: '1px' }}>
               VWings24x7
             </span>
           </motion.div>

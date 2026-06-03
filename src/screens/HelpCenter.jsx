@@ -85,11 +85,11 @@ const HelpCenter = () => {
               <motion.a 
                 key={i}
                 href={link.href} 
-                whileHover={{ scale: 1.1, backgroundColor: 'rgba(245, 195, 0, 0.1)', color: 'var(--primary-yellow)', borderColor: 'var(--primary-yellow)' }}
-                style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-muted)', background: 'rgba(255,255,255,0.03)', padding: '10px 20px', borderRadius: '100px', textDecoration: 'none', transition: 'all 0.3s ease', border: '1px solid var(--border)' }}
+                whileHover={{ scale: 1.05, backgroundColor: 'var(--magenta)', color: '#FFFFFF', borderColor: 'var(--magenta)', boxShadow: '0 8px 16px rgba(182, 0, 125, 0.25)' }}
+                style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-main)', background: '#FFFFFF', padding: '12px 24px', borderRadius: '100px', textDecoration: 'none', transition: 'all 0.3s ease', border: '1px solid var(--border)', fontWeight: '600' }}
               >
                 {link.icon}
-                <span style={{ fontSize: '0.9rem', fontWeight: '500' }}>{link.label}</span>
+                <span style={{ fontSize: '0.95rem' }}>{link.label}</span>
               </motion.a>
             ))}
           </div>

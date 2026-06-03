@@ -81,20 +81,7 @@ const NotificationBell = ({ role, userId }) => {
     } catch (err) {}
   };
 
-  const dropdownStyle = {
-    position: 'absolute',
-    top: 'calc(100% + 12px)',
-    right: 0,
-    background: 'rgba(5, 5, 15, 0.98)',
-    border: '1px solid var(--border, rgba(255,255,255,0.1))',
-    borderRadius: '16px',
-    backdropFilter: 'blur(20px)',
-    WebkitBackdropFilter: 'blur(20px)',
-    boxShadow: '0 16px 48px rgba(0,0,0,0.5)',
-    zIndex: 9999,
-    overflow: 'hidden',
-    width: '340px'
-  };
+  // Styles are now handled by .notification-dropdown in App.css
 
   return (
     <div style={{ position: 'relative' }} ref={notifRef}>
@@ -131,19 +118,19 @@ const NotificationBell = ({ role, userId }) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            style={dropdownStyle}
+            className="notification-dropdown"
           >
             <div style={{ padding: '16px 20px', borderBottom: '1px solid rgba(255,255,255,0.1)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span style={{ fontWeight: '600', fontSize: '0.95rem', color: 'var(--text-main, white)' }}>Notifications</span>
+              <span style={{ fontWeight: '700', fontSize: '1rem', color: '#FFFFFF' }}>Notifications</span>
               {unreadCount > 0 && (
-                <button onClick={markAllRead} style={{ background: 'none', border: 'none', color: 'var(--primary-yellow, #F5C300)', cursor: 'pointer', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <button onClick={markAllRead} style={{ background: 'none', border: 'none', color: 'var(--magenta)', cursor: 'pointer', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: '600' }}>
                   <CheckCheck size={14} /> Mark all read
                 </button>
               )}
             </div>
             <div style={{ maxHeight: '360px', overflowY: 'auto' }}>
               {notifications.length === 0 ? (
-                <div style={{ padding: '24px', textAlign: 'center', color: 'var(--text-muted, rgba(255,255,255,0.5))', fontSize: '0.9rem' }}>
+                <div style={{ padding: '32px 24px', textAlign: 'center', color: 'rgba(255,255,255,0.6)', fontSize: '0.95rem', fontWeight: '500' }}>
                   No new notifications
                 </div>
               ) : notifications.map(notif => (
@@ -151,23 +138,23 @@ const NotificationBell = ({ role, userId }) => {
                   key={notif.notification_id}
                   onClick={() => markRead(notif.notification_id, notif.is_read)}
                   style={{
-                    padding: '14px 20px',
+                    padding: '16px 20px',
                     borderBottom: '1px solid rgba(255,255,255,0.05)',
                     cursor: 'pointer',
-                    background: notif.is_read ? 'transparent' : 'rgba(245,195,0,0.05)',
+                    background: notif.is_read ? 'transparent' : 'rgba(182, 0, 125, 0.1)',
                     transition: 'background 0.2s',
-                    color: 'var(--text-main, white)'
+                    color: '#FFFFFF'
                   }}
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px' }}>
                     <div>
-                      <div style={{ fontWeight: notif.is_read ? '400' : '600', fontSize: '0.88rem', marginBottom: '4px', color: 'var(--text-main, white)' }}>
-                        {!notif.is_read && <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: 'var(--primary-yellow, #F5C300)', display: 'inline-block', marginRight: '8px' }} />}
+                      <div style={{ fontWeight: notif.is_read ? '500' : '700', fontSize: '0.9rem', marginBottom: '4px', color: '#FFFFFF' }}>
+                        {!notif.is_read && <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--magenta)', display: 'inline-block', marginRight: '8px' }} />}
                         {notif.title}
                       </div>
-                      <div style={{ fontSize: '0.78rem', color: 'var(--text-muted, rgba(255,255,255,0.7))' }}>{notif.message}</div>
+                      <div style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.8)' }}>{notif.message}</div>
                     </div>
-                    <span style={{ fontSize: '0.72rem', color: 'var(--text-muted, rgba(255,255,255,0.5))', whiteSpace: 'nowrap', flexShrink: 0 }}>
+                    <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.5)', whiteSpace: 'nowrap', flexShrink: 0, fontWeight: '500' }}>
                       {new Date(notif.created_at).toLocaleDateString()}
                     </span>
                   </div>

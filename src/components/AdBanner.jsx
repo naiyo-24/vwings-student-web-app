@@ -92,7 +92,10 @@ const AdBanner = () => {
       <div style={{ position: 'absolute', bottom: '-50%', right: '-10%', width: '300px', height: '300px', background: 'radial-gradient(circle, rgba(236, 72, 153, 0.15) 0%, transparent 70%)', filter: 'blur(40px)', zIndex: 0 }} />
 
       <AnimatePresence initial={false} custom={direction}>
-        <motion.div
+        <motion.a
+          href={currentAd.website_link ? (currentAd.website_link.startsWith('http') ? currentAd.website_link : `https://${currentAd.website_link}`) : undefined}
+          target={currentAd.website_link ? "_blank" : undefined}
+          rel="noreferrer"
           key={currentIndex}
           custom={direction}
           variants={variants}
@@ -100,14 +103,17 @@ const AdBanner = () => {
           animate="center"
           exit="exit"
           transition={{ x: { type: "spring", stiffness: 300, damping: 30 }, opacity: { duration: 0.2 } }}
+          className="ad-content-wrapper"
           style={{ 
             position: 'absolute', width: '100%', height: '100%', padding: '0 60px',
-            display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxSizing: 'border-box', zIndex: 1
+            display: 'flex', justifyContent: 'space-between', alignItems: 'center', boxSizing: 'border-box', zIndex: 1,
+            textDecoration: 'none', cursor: currentAd.website_link ? 'pointer' : 'default'
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '32px', flex: 1 }}>
+          <div className="ad-flex-container" style={{ display: 'flex', alignItems: 'center', gap: '32px', flex: 1, minWidth: 0 }}>
             {currentAd.ad_image && (
               <motion.div
+                className="ad-image-container"
                 initial={{ scale: 0.8, rotate: -5 }} animate={{ scale: 1, rotate: 0 }} transition={{ type: "spring", bounce: 0.5 }}
                 style={{
                   width: '120px', height: '120px', borderRadius: '20px', overflow: 'hidden',
@@ -118,45 +124,26 @@ const AdBanner = () => {
                 <img src={`${API_BASE_URL}/${currentAd.ad_image}`} alt="Ad" style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => { e.target.style.display = 'none'; }} />
               </motion.div>
             )}
-            <div style={{ flex: 1 }}>
+            <div style={{ flex: 1, minWidth: 0 }}>
               <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.1 }}>
-                <span style={{ display: 'inline-block', padding: '4px 10px', background: 'rgba(245, 195, 0, 0.2)', color: 'var(--primary-yellow)', borderRadius: '12px', fontSize: '0.75rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '8px' }}>
+                <span style={{ display: 'inline-block', padding: '4px 10px', background: 'rgba(245, 195, 0, 0.2)', color: '#F5C300', borderRadius: '12px', fontSize: '0.75rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '8px' }}>
                   Sponsored
                 </span>
-                <h3 style={{ color: 'white', margin: '0 0 8px 0', fontSize: '1.6rem', fontWeight: '800', letterSpacing: '-0.5px' }}>
+                <h3 className="ad-title" style={{ color: 'white', margin: '0 0 8px 0', fontSize: '1.6rem', fontWeight: '800', letterSpacing: '-0.5px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                   {currentAd.headline}
                 </h3>
-                {currentAd.tagline && <p style={{ margin: 0, fontSize: '1rem', color: 'rgba(255,255,255,0.7)', maxWidth: '80%' }}>{currentAd.tagline}</p>}
+                {currentAd.tagline && <p className="ad-tagline" style={{ margin: 0, fontSize: '1rem', color: 'rgba(255,255,255,0.7)', maxWidth: '100%', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{currentAd.tagline}</p>}
               </motion.div>
             </div>
           </div>
           
-          {currentAd.website_link && (
-            <motion.a 
-              href={currentAd.website_link.startsWith('http') ? currentAd.website_link : `https://${currentAd.website_link}`} 
-              target="_blank" rel="noreferrer" 
-              initial={{ x: 20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.2 }}
-              style={{ textDecoration: 'none' }}
-            >
-              <motion.button 
-                whileHover={{ scale: 1.05, background: 'var(--primary-yellow)', color: 'black' }} 
-                whileTap={{ scale: 0.95 }}
-                style={{ 
-                  padding: '12px 24px', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '8px', 
-                  fontWeight: 'bold', background: 'rgba(255,255,255,0.1)', color: 'white',
-                  border: '1px solid rgba(255,255,255,0.2)', borderRadius: '14px', cursor: 'pointer', transition: 'all 0.2s'
-                }}
-              >
-                Learn More <ArrowRight size={18} />
-              </motion.button>
-            </motion.a>
-          )}
-        </motion.div>
+        </motion.a>
       </AnimatePresence>
 
       {ads.length > 1 && (
         <>
           <button 
+            className="ad-nav-btn ad-nav-left"
             onClick={handlePrev}
             style={{ 
               position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', zIndex: 10,
@@ -170,6 +157,7 @@ const AdBanner = () => {
             <ChevronLeft size={24} />
           </button>
           <button 
+            className="ad-nav-btn ad-nav-right"
             onClick={handleNext}
             style={{ 
               position: 'absolute', right: '16px', top: '50%', transform: 'translateY(-50%)', zIndex: 10,

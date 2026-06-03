@@ -2,11 +2,20 @@
   position: relative;
   overflow: hidden;
   border-radius: 32px;
-  padding: 60px 40px;
-  background: linear-gradient(135deg, rgba(30, 27, 75, 0.8) 0%, rgba(88, 28, 135, 0.6) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  padding: 80px 40px;
+  background: var(--gradient-hero);
+  border: none;
+  box-shadow: 0 24px 50px -12px rgba(123, 7, 113, 0.4);
   text-align: center;
+}
+
+.about-hero-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgba(255,255,255,0.15), transparent 60%),
+              radial-gradient(circle at bottom left, rgba(0,0,0,0.1), transparent 60%);
+  pointer-events: none;
 }
 
 .about-hero-title {
