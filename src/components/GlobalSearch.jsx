@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Search, X, Loader2, BookOpen, Users, User } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
-const API_BASE = 'http://localhost:8000';
+const API_BASE = 'https://appbackend.vwings247.me';
 
 const GlobalSearch = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -58,25 +58,25 @@ const GlobalSearch = () => {
   };
 
   const hasResults = results && (
-    results.students.length > 0 || 
-    results.teachers.length > 0 || 
-    results.counsellors.length > 0 || 
+    results.students.length > 0 ||
+    results.teachers.length > 0 ||
+    results.counsellors.length > 0 ||
     results.courses.length > 0
   );
 
   return (
     <div className="global-search-container" ref={searchRef} style={{ position: 'relative' }}>
       {!isOpen ? (
-        <button 
+        <button
           onClick={() => setIsOpen(true)}
-          style={{ 
-            background: 'rgba(0,0,0,0.2)', 
-            border: '1px solid var(--border)', 
-            borderRadius: '12px', 
-            width: '40px', 
-            height: '40px', 
-            display: 'flex', 
-            alignItems: 'center', 
+          style={{
+            background: 'rgba(0,0,0,0.2)',
+            border: '1px solid var(--border)',
+            borderRadius: '12px',
+            width: '40px',
+            height: '40px',
+            display: 'flex',
+            alignItems: 'center',
             justifyContent: 'center',
             cursor: 'pointer',
             color: 'var(--text-main)'
@@ -94,21 +94,21 @@ const GlobalSearch = () => {
             placeholder="Search courses, teachers..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            style={{ 
-              background: 'transparent', 
-              border: 'none', 
-              outline: 'none', 
-              color: 'var(--text-main)', 
-              padding: '8px', 
+            style={{
+              background: 'transparent',
+              border: 'none',
+              outline: 'none',
+              color: 'var(--text-main)',
+              padding: '8px',
               width: '100%',
               fontSize: '0.9rem'
             }}
           />
-          <X 
-            size={16} 
-            color="var(--text-muted)" 
-            style={{ cursor: 'pointer' }} 
-            onClick={() => { setIsOpen(false); setQuery(''); setResults(null); }} 
+          <X
+            size={16}
+            color="var(--text-muted)"
+            style={{ cursor: 'pointer' }}
+            onClick={() => { setIsOpen(false); setQuery(''); setResults(null); }}
           />
         </div>
       )}
@@ -132,8 +132,8 @@ const GlobalSearch = () => {
                 <div style={{ padding: '0 12px', marginBottom: results.teachers.length > 0 ? '12px' : '0' }}>
                   <h4 style={{ fontSize: '0.75rem', color: 'var(--text-muted)', margin: '0 0 8px 4px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Courses</h4>
                   {results.courses.map(c => (
-                    <div 
-                      key={c.id} 
+                    <div
+                      key={c.id}
                       onClick={() => handleResultClick('courses', c)}
                       style={{ padding: '8px', display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer', borderRadius: '8px', transition: 'background 0.2s' }}
                       onMouseEnter={(e) => e.currentTarget.style.background = 'var(--surface-hover)'}
@@ -156,7 +156,7 @@ const GlobalSearch = () => {
                 <div style={{ padding: '0 12px' }}>
                   <h4 style={{ fontSize: '0.75rem', color: 'var(--text-muted)', margin: '0 0 8px 4px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Teachers</h4>
                   {results.teachers.map(t => (
-                    <div 
+                    <div
                       key={t.id}
                       onClick={() => handleResultClick('teachers', t)}
                       style={{ padding: '8px', display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer', borderRadius: '8px', transition: 'background 0.2s' }}

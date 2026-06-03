@@ -16,7 +16,7 @@ const HelpCenter = () => {
     e.preventDefault();
     setStatus('submitting');
     try {
-      const response = await fetch('http://localhost:8000/api/helpcenter/create', {
+      const response = await fetch('https://appbackend.vwings247.me/api/helpcenter/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
@@ -55,7 +55,7 @@ const HelpCenter = () => {
   };
 
   return (
-    <motion.div 
+    <motion.div
       initial="hidden"
       animate="show"
       variants={containerVariants}
@@ -64,9 +64,9 @@ const HelpCenter = () => {
       <motion.div variants={itemVariants} className="glass-panel" style={{ padding: '48px 32px', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
         {/* Subtle background glow */}
         <div style={{ position: 'absolute', top: '0', left: '50%', transform: 'translateX(-50%)', width: '300px', height: '150px', background: 'var(--magenta)', filter: 'blur(80px)', opacity: '0.2', zIndex: 0 }} />
-        
+
         <div style={{ position: 'relative', zIndex: 1 }}>
-          <motion.div 
+          <motion.div
             initial={{ scale: 0.8 }}
             animate={{ scale: 1 }}
             transition={{ type: "spring", stiffness: 200, damping: 15 }}
@@ -82,9 +82,9 @@ const HelpCenter = () => {
           </p>
           <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', flexWrap: 'wrap' }}>
             {socialLinks.map((link, i) => (
-              <motion.a 
+              <motion.a
                 key={i}
-                href={link.href} 
+                href={link.href}
                 whileHover={{ scale: 1.05, backgroundColor: 'var(--magenta)', color: '#FFFFFF', borderColor: 'var(--magenta)', boxShadow: '0 8px 16px rgba(182, 0, 125, 0.25)' }}
                 style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--text-main)', background: '#FFFFFF', padding: '12px 24px', borderRadius: '100px', textDecoration: 'none', transition: 'all 0.3s ease', border: '1px solid var(--border)', fontWeight: '600' }}
               >
@@ -101,7 +101,7 @@ const HelpCenter = () => {
           <h3 style={{ color: 'var(--text-main)', fontSize: '1.8rem', marginBottom: '8px' }}>Submit a Query to Admin</h3>
           <p style={{ color: 'var(--text-muted)' }}>We are here to help. Send us your query and the admin team will resolve it promptly.</p>
         </div>
-        
+
         <form onSubmit={handleSubmitTicket} style={{ display: 'flex', flexDirection: 'column', gap: '20px', maxWidth: '700px', margin: '0 auto' }}>
           <AnimatePresence>
             {status === 'success' && (
@@ -120,50 +120,50 @@ const HelpCenter = () => {
               </motion.div>
             )}
           </AnimatePresence>
-          
+
           <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
             <div style={{ position: 'relative', flex: 1, minWidth: '250px' }}>
               <User size={18} style={{ position: 'absolute', left: '16px', top: '16px', color: focusedField === 'name' ? 'var(--magenta)' : 'var(--text-muted)', transition: 'color 0.3s' }} />
               <input type="text" name="name" value={formData.name} onChange={handleInputChange} onFocus={() => setFocusedField('name')} onBlur={() => setFocusedField(null)} required placeholder="Full name" style={{ width: '100%', padding: '14px 16px 14px 48px', background: 'rgba(0,0,0,0.2)', border: focusedField === 'name' ? '1px solid var(--magenta)' : '1px solid var(--border)', borderRadius: '12px', color: 'var(--text-main)', fontSize: '1rem', transition: 'all 0.3s', outline: 'none', boxShadow: focusedField === 'name' ? '0 0 0 3px rgba(182, 0, 125, 0.2)' : 'none' }} />
             </div>
-            
+
             <div style={{ position: 'relative', flex: 1, minWidth: '250px' }}>
               <Smartphone size={18} style={{ position: 'absolute', left: '16px', top: '16px', color: focusedField === 'phone' ? 'var(--magenta)' : 'var(--text-muted)', transition: 'color 0.3s' }} />
               <input type="text" name="phone_no" value={formData.phone_no} onChange={handleInputChange} onFocus={() => setFocusedField('phone')} onBlur={() => setFocusedField(null)} required placeholder="Phone number" style={{ width: '100%', padding: '14px 16px 14px 48px', background: 'rgba(0,0,0,0.2)', border: focusedField === 'phone' ? '1px solid var(--magenta)' : '1px solid var(--border)', borderRadius: '12px', color: 'var(--text-main)', fontSize: '1rem', transition: 'all 0.3s', outline: 'none', boxShadow: focusedField === 'phone' ? '0 0 0 3px rgba(182, 0, 125, 0.2)' : 'none' }} />
             </div>
           </div>
-          
+
           <div style={{ position: 'relative' }}>
             <Mail size={18} style={{ position: 'absolute', left: '16px', top: '16px', color: focusedField === 'email' ? 'var(--magenta)' : 'var(--text-muted)', transition: 'color 0.3s' }} />
             <input type="email" name="email" value={formData.email} onChange={handleInputChange} onFocus={() => setFocusedField('email')} onBlur={() => setFocusedField(null)} required placeholder="Email address" style={{ width: '100%', padding: '14px 16px 14px 48px', background: 'rgba(0,0,0,0.2)', border: focusedField === 'email' ? '1px solid var(--magenta)' : '1px solid var(--border)', borderRadius: '12px', color: 'var(--text-main)', fontSize: '1rem', transition: 'all 0.3s', outline: 'none', boxShadow: focusedField === 'email' ? '0 0 0 3px rgba(182, 0, 125, 0.2)' : 'none' }} />
           </div>
-          
+
           <div style={{ position: 'relative' }}>
             <MessageSquare size={18} style={{ position: 'absolute', left: '16px', top: '16px', color: focusedField === 'desc' ? 'var(--magenta)' : 'var(--text-muted)', transition: 'color 0.3s' }} />
-            <textarea 
-              name="problem_description" 
-              value={formData.problem_description} 
+            <textarea
+              name="problem_description"
+              value={formData.problem_description}
               onChange={handleInputChange}
-              onFocus={() => setFocusedField('desc')} onBlur={() => setFocusedField(null)} 
-              required 
+              onFocus={() => setFocusedField('desc')} onBlur={() => setFocusedField(null)}
+              required
               placeholder="Please describe your issue in detail..."
               style={{ width: '100%', padding: '14px 16px 14px 48px', background: 'rgba(0,0,0,0.2)', border: focusedField === 'desc' ? '1px solid var(--magenta)' : '1px solid var(--border)', borderRadius: '12px', color: 'var(--text-main)', minHeight: '140px', resize: 'vertical', fontSize: '1rem', transition: 'all 0.3s', outline: 'none', boxShadow: focusedField === 'desc' ? '0 0 0 3px rgba(182, 0, 125, 0.2)' : 'none' }}
             />
           </div>
-          
-          <motion.button 
-            type="submit" 
-            disabled={status === 'submitting'} 
+
+          <motion.button
+            type="submit"
+            disabled={status === 'submitting'}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            style={{ 
-              background: 'linear-gradient(135deg, #7c0a21 0%, #5c0011 100%)', 
-              color: 'white', 
-              padding: '16px', 
-              borderRadius: '12px', 
-              border: '1px solid rgba(255,255,255,0.1)', 
-              cursor: 'pointer', 
-              fontWeight: 'bold', 
+            style={{
+              background: 'linear-gradient(135deg, #7c0a21 0%, #5c0011 100%)',
+              color: 'white',
+              padding: '16px',
+              borderRadius: '12px',
+              border: '1px solid rgba(255,255,255,0.1)',
+              cursor: 'pointer',
+              fontWeight: 'bold',
               fontSize: '1.1rem',
               marginTop: '12px',
               display: 'flex',

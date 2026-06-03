@@ -21,7 +21,7 @@ const Classrooms = () => {
   useEffect(() => {
     const fetchClassrooms = async () => {
       try {
-        const response = await fetch(`http://localhost:8000/api/classrooms/get/by-student/${studentId}`);
+        const response = await fetch(`https://appbackend.vwings247.me/api/classrooms/get/by-student/${studentId}`);
         if (response.ok) {
           const data = await response.json();
           setClassrooms(data);
@@ -40,7 +40,7 @@ const Classrooms = () => {
       // Fetch existing messages (bypassing student membership check for demo by using the general endpoint if needed, or student endpoint)
       const fetchMessages = async () => {
         try {
-          const response = await fetch(`http://localhost:8000/api/classrooms/student/${activeClass.class_id}/messages?student_id=${studentId}`);
+          const response = await fetch(`https://appbackend.vwings247.me/api/classrooms/student/${activeClass.class_id}/messages?student_id=${studentId}`);
           if (response.ok) {
             const data = await response.json();
             setChatHistory(data);
@@ -53,7 +53,7 @@ const Classrooms = () => {
 
       // Connect to WebSocket
       ws.current = new WebSocket(`ws://localhost:8000/api/classrooms/ws/${activeClass.class_id}/chat?user_id=${studentId}&role=student`);
-      
+
       ws.current.onmessage = (event) => {
         const data = JSON.parse(event.data);
         if (data.message_id) {
@@ -74,16 +74,16 @@ const Classrooms = () => {
   const handleSendMessage = async (e) => {
     e.preventDefault();
     if ((!message.trim() && !attachment) || !ws.current) return;
-    
+
     let attachmentUrl = null;
     let attachmentType = null;
-    
+
     if (attachment) {
       setUploadingAttachment(true);
       const formData = new FormData();
       formData.append('file', attachment);
       try {
-        const res = await fetch('http://localhost:8000/api/classrooms/upload-attachment', {
+        const res = await fetch('https://appbackend.vwings247.me/api/classrooms/upload-attachment', {
           method: 'POST',
           body: formData
         });
@@ -107,7 +107,7 @@ const Classrooms = () => {
       attachment_url: attachmentUrl,
       attachment_type: attachmentType
     }));
-    
+
     setMessage('');
   };
 
@@ -123,11 +123,11 @@ const Classrooms = () => {
             </div>
           </div>
           {activeClass.meet_link ? (
-            <a 
-              href={activeClass.meet_link.startsWith('http') ? activeClass.meet_link : `https://${activeClass.meet_link}`} 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="btn-primary" 
+            <a
+              href={activeClass.meet_link.startsWith('http') ? activeClass.meet_link : `https://${activeClass.meet_link}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary"
               style={{ padding: '8px 16px', gap: '8px', textDecoration: 'none', display: 'flex', alignItems: 'center' }}
             >
               <Video size={16} /> Join Video
@@ -138,22 +138,22 @@ const Classrooms = () => {
             </button>
           )}
         </div>
-        
+
         <div style={{ flex: 1, padding: '20px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '12px' }}>
           {chatHistory.map((msg, i) => {
             const isMe = msg.sender_id === studentId;
             return (
               <div key={i} style={{ alignSelf: isMe ? 'flex-end' : 'flex-start', background: isMe ? 'var(--primary)' : 'var(--surface)', padding: '12px 16px', borderRadius: '12px', maxWidth: '70%', color: isMe ? 'white' : 'var(--text-main)' }}>
                 <p style={{ margin: '0 0 4px 0', fontSize: '0.8rem', fontWeight: 'bold', color: isMe ? 'white' : 'var(--primary)' }}>{isMe ? 'You' : msg.sender_role || 'Instructor'}</p>
-                
+
                 {msg.attachment_url && msg.attachment_type === 'image' && (
-                  <img src={`http://localhost:8000/${msg.attachment_url.replace(/\\/g, '/')}`} alt="attachment" style={{ maxWidth: '100%', borderRadius: '8px', marginBottom: '8px' }} />
+                  <img src={`https://appbackend.vwings247.me/${msg.attachment_url.replace(/\\/g, '/')}`} alt="attachment" style={{ maxWidth: '100%', borderRadius: '8px', marginBottom: '8px' }} />
                 )}
                 {msg.attachment_url && msg.attachment_type === 'pdf' && (
-                  <a href={`http://localhost:8000/${msg.attachment_url.replace(/\\/g, '/')}`} target="_blank" rel="noopener noreferrer" style={{ display: 'block', marginBottom: '8px', color: isMe ? 'white' : 'var(--primary)', textDecoration: 'underline' }}>View PDF Document</a>
+                  <a href={`https://appbackend.vwings247.me/${msg.attachment_url.replace(/\\/g, '/')}`} target="_blank" rel="noopener noreferrer" style={{ display: 'block', marginBottom: '8px', color: isMe ? 'white' : 'var(--primary)', textDecoration: 'underline' }}>View PDF Document</a>
                 )}
                 {msg.attachment_url && msg.attachment_type === 'file' && (
-                  <a href={`http://localhost:8000/${msg.attachment_url.replace(/\\/g, '/')}`} target="_blank" rel="noopener noreferrer" style={{ display: 'block', marginBottom: '8px', color: isMe ? 'white' : 'var(--primary)', textDecoration: 'underline' }}>Download File</a>
+                  <a href={`https://appbackend.vwings247.me/${msg.attachment_url.replace(/\\/g, '/')}`} target="_blank" rel="noopener noreferrer" style={{ display: 'block', marginBottom: '8px', color: isMe ? 'white' : 'var(--primary)', textDecoration: 'underline' }}>Download File</a>
                 )}
 
                 <p style={{ margin: 0 }}>{msg.content || msg.text}</p>
@@ -169,12 +169,12 @@ const Classrooms = () => {
           {attachment && (
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'var(--surface)', padding: '8px 12px', borderRadius: '8px', alignSelf: 'flex-start' }}>
               <span style={{ fontSize: '0.8rem' }}>{attachment.name}</span>
-              <button type="button" onClick={() => { setAttachment(null); if(fileInputRef.current) fileInputRef.current.value = ''; }} style={{ background: 'transparent', border: 'none', color: '#ef4444', cursor: 'pointer', padding: 0 }}><X size={14} /></button>
+              <button type="button" onClick={() => { setAttachment(null); if (fileInputRef.current) fileInputRef.current.value = ''; }} style={{ background: 'transparent', border: 'none', color: '#ef4444', cursor: 'pointer', padding: 0 }}><X size={14} /></button>
             </div>
           )}
           <div style={{ display: 'flex', gap: '12px' }}>
-            <input 
-              type="file" 
+            <input
+              type="file"
               ref={fileInputRef}
               accept="image/*,.pdf"
               onChange={(e) => setAttachment(e.target.files[0])}
@@ -183,9 +183,9 @@ const Classrooms = () => {
             <button type="button" className="btn-secondary" onClick={() => fileInputRef.current.click()} style={{ borderRadius: '50%', width: '48px', height: '48px', flexShrink: 0, padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Upload size={20} />
             </button>
-            <input 
-              type="text" 
-              placeholder="Type a message..." 
+            <input
+              type="text"
+              placeholder="Type a message..."
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               style={{ flex: 1, background: 'var(--background)', border: '1px solid var(--border)', borderRadius: '24px', padding: '12px 20px', color: 'var(--text-main)', minWidth: 0 }}
@@ -209,11 +209,11 @@ const Classrooms = () => {
   };
 
   return (
-    <motion.div 
+    <motion.div
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="glass-panel" 
+      className="glass-panel"
       style={{ padding: '32px' }}
     >
       <motion.h2 variants={itemVariants} style={{ marginBottom: '24px' }}>My Classrooms</motion.h2>

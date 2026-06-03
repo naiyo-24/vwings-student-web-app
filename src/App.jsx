@@ -22,7 +22,7 @@ import GlobalSearch from './components/GlobalSearch';
 
 import { AuthContext, useAuth } from './AuthContext';
 
-const API_BASE = 'http://localhost:8000';
+const API_BASE = 'https://appbackend.vwings247.me';
 
 // ─── Sidebar ─────────────────────────────────────────────────────────────────
 const Sidebar = ({ handleLogout, handleInstallApp, showInstallButton, isMobileMenuOpen, setIsMobileMenuOpen }) => {
@@ -34,13 +34,13 @@ const Sidebar = ({ handleLogout, handleInstallApp, showInstallButton, isMobileMe
     : 'ST';
 
   const links = [
-    { name: 'Dashboard',    path: '/',          icon: <Home size={20} /> },
-    { name: 'Courses',      path: '/courses',   icon: <BookOpen size={20} /> },
-    { name: 'Classrooms',   path: '/classrooms',icon: <User size={20} /> },
-    { name: 'Fees Tracker', path: '/fees',      icon: <CreditCard size={20} /> },
-    { name: 'Profile',      path: '/profile',   icon: <User size={20} /> },
-    { name: 'About Us',     path: '/about',     icon: <HelpCircle size={20} /> },
-    { name: 'Help Center',  path: '/help',      icon: <HelpCircle size={20} /> },
+    { name: 'Dashboard', path: '/', icon: <Home size={20} /> },
+    { name: 'Courses', path: '/courses', icon: <BookOpen size={20} /> },
+    { name: 'Classrooms', path: '/classrooms', icon: <User size={20} /> },
+    { name: 'Fees Tracker', path: '/fees', icon: <CreditCard size={20} /> },
+    { name: 'Profile', path: '/profile', icon: <User size={20} /> },
+    { name: 'About Us', path: '/about', icon: <HelpCircle size={20} /> },
+    { name: 'Help Center', path: '/help', icon: <HelpCircle size={20} /> },
   ];
 
   return (
@@ -141,8 +141,8 @@ const Topbar = ({ toggleMobileMenu }) => {
             )}
           </Link>
         </div>
-        </div>
       </div>
+    </div>
   );
 };
 

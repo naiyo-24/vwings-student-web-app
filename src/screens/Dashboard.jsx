@@ -7,7 +7,7 @@ import CarouselCard from '../components/CarouselCard';
 import AdBanner from '../components/AdBanner';
 import { useAuth } from '../AuthContext';
 
-const API_BASE = 'http://localhost:8000';
+const API_BASE = 'https://appbackend.vwings247.me';
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -50,7 +50,7 @@ const Dashboard = () => {
             const classData = await classRes.json();
             setClassroomsCount(classData.length);
           }
-          
+
           // Fetch Fee Profile
           if (user.course_availing) {
             const feeRes = await fetch(`${API_BASE}/api/fees/profile/${user.student_id}`);
@@ -63,7 +63,7 @@ const Dashboard = () => {
         console.error("Failed to fetch dashboard data", err);
       }
     };
-    
+
     fetchData();
   }, [user]);
 
@@ -78,7 +78,7 @@ const Dashboard = () => {
   };
 
   return (
-    <motion.div 
+    <motion.div
       variants={containerVariants}
       initial="hidden"
       animate="show"
@@ -155,7 +155,7 @@ const Dashboard = () => {
           <Bell size={24} color="var(--primary)" />
           <h3>Recent Notifications</h3>
         </div>
-        
+
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           {notifications.length > 0 ? notifications.map((note) => (
             <div key={note.announcement_id} style={{ padding: '16px', background: 'var(--surface-hover)', borderRadius: '12px', display: 'flex', alignItems: 'center', gap: '16px' }}>
@@ -179,10 +179,10 @@ const Dashboard = () => {
         <div style={{ display: 'flex', gap: '24px', overflowX: 'auto', paddingBottom: '16px' }}>
           {featuredCourses.length > 0 ? (
             featuredCourses.map(course => (
-              <CarouselCard 
-                key={course.course_id} 
-                title={course.course_name} 
-                description={course.course_description ? course.course_description.substring(0, 50) + '...' : ''} 
+              <CarouselCard
+                key={course.course_id}
+                title={course.course_name}
+                description={course.course_description ? course.course_description.substring(0, 50) + '...' : ''}
               />
             ))
           ) : (

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { Download, CreditCard } from 'lucide-react';
 import { useAuth } from '../AuthContext';
 
-const API_BASE = 'http://localhost:8000';
+const API_BASE = 'https://appbackend.vwings247.me';
 
 // Helper to dynamically load Razorpay script
 const loadRazorpay = () => {
@@ -56,9 +56,9 @@ const Fees = () => {
   const paidInstallments = (feeProfile?.paid_installments || fees
     .filter(f => f.payment_type === 'installment' && f.payment_status === 'completed')
     .map(f => f.installment_no)).map(Number);
-    
+
   const hasFullPayment = fees.some(f => f.payment_type === 'full' && f.payment_status === 'completed');
-  
+
   // Calculate next required installment based on paid ones
   const allInstallments = [1, 2, 3, 4];
   const totalAmountPaid = feeProfile?.total_paid ?? fees
@@ -83,7 +83,7 @@ const Fees = () => {
 
   const handlePayment = async (e) => {
     e.preventDefault();
-    
+
     if (!amount || isNaN(amount) || amount <= 0) {
       toast.error("Please enter a valid amount.");
       return;
@@ -229,13 +229,13 @@ const Fees = () => {
       </div>
 
       <div className="dashboard-grid" style={{ marginTop: '32px', marginBottom: 0 }}>
-        
+
         {/* Payment Form */}
         <div className="glass-card" style={{ padding: '24px' }}>
           <h3 style={{ marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}>
             <CreditCard size={20} /> Make a Payment
           </h3>
-          
+
           {totalFee === 0 ? (
             <div style={{ padding: '16px', background: 'rgba(245, 158, 11, 0.1)', borderRadius: '12px', border: '1px solid rgba(245, 158, 11, 0.3)' }}>
               <p style={{ color: '#f59e0b', margin: 0, fontWeight: '500' }}>Your fee profile has not been configured by the admin yet. Please contact support.</p>
@@ -252,8 +252,8 @@ const Fees = () => {
             <form onSubmit={handlePayment} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div className="input-group" style={{ marginBottom: 0 }}>
                 <label>Payment Option</label>
-                <select 
-                  value={paymentType} 
+                <select
+                  value={paymentType}
                   onChange={(e) => {
                     setPaymentType(e.target.value);
                     if (e.target.value === 'full') setAmount(pendingFee);
@@ -273,8 +273,8 @@ const Fees = () => {
 
               <div className="input-group" style={{ marginBottom: 0 }}>
                 <label>Amount (₹)</label>
-                <input 
-                  type="number" 
+                <input
+                  type="number"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
                   placeholder={paymentType === 'full' ? "Remaining Balance" : "Enter amount to pay"}
@@ -284,9 +284,9 @@ const Fees = () => {
                 />
               </div>
 
-              <button 
-                type="submit" 
-                className="btn-primary" 
+              <button
+                type="submit"
+                className="btn-primary"
                 disabled={processing}
                 style={{ marginTop: '8px', padding: '14px', fontWeight: 'bold' }}
               >
@@ -340,9 +340,9 @@ const Fees = () => {
                       </td>
                       <td style={{ padding: '12px 8px' }}>
                         {fee.file_path ? (
-                          <a 
-                            href={`${API_BASE}/${fee.file_path.replace(/\\\\/g, '/')}`} 
-                            target="_blank" 
+                          <a
+                            href={`${API_BASE}/${fee.file_path.replace(/\\\\/g, '/')}`}
+                            target="_blank"
                             rel="noopener noreferrer"
                             style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: 'var(--primary-yellow)', textDecoration: 'none', background: 'rgba(245, 195, 0, 0.1)', padding: '6px 10px', borderRadius: '8px', fontSize: '0.8rem' }}
                           >
