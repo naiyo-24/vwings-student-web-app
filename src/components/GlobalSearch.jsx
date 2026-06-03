@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Search, X, Loader2, BookOpen, Users, User } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
-const API_BASE = 'https://appbackend.vwings247.me';
+const API_BASE = 'http://localhost:8000';
 
 const GlobalSearch = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -187,3 +187,4 @@ const GlobalSearch = () => {
 };
 
 export default GlobalSearch;
+

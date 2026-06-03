@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { Download, CreditCard } from 'lucide-react';
 import { useAuth } from '../AuthContext';
 
-const API_BASE = 'https://appbackend.vwings247.me';
+const API_BASE = 'http://localhost:8000';
 
 // Helper to dynamically load Razorpay script
 const loadRazorpay = () => {
@@ -366,4 +366,5 @@ const Fees = () => {
 };
 
 export default Fees;
+
 

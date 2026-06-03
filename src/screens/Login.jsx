@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { LogIn, Eye, EyeOff, Loader } from 'lucide-react';
 import { useToast } from '../components/ToastContext';
 
-const API_BASE = 'https://appbackend.vwings247.me';
+const API_BASE = 'http://localhost:8000';
 
 const Login = ({ onLogin }) => {
   const toast = useToast();
@@ -145,3 +145,4 @@ const Login = ({ onLogin }) => {
 };
 
 export default Login;
+

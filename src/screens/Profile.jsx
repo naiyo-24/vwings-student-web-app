@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useAuth } from '../AuthContext';
 
-const API_BASE = 'https://appbackend.vwings247.me';
+const API_BASE = 'http://localhost:8000';
 
 const Profile = () => {
   const { user } = useAuth();
@@ -156,3 +156,4 @@ const Profile = () => {
 };
 
 export default Profile;
+

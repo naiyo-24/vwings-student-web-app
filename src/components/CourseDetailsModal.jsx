@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 const CourseDetailsModal = ({ course, isOpen, onClose }) => {
   if (!isOpen || !course) return null;
 
-  const photoUrl = course.course_photo ? `https://appbackend.vwings247.me/${course.course_photo}` : null;
+  const photoUrl = course.course_photo ? `http://localhost:8000/${course.course_photo}` : null;
   const fees = course?.general_data?.course_fees ? `₹${course.general_data.course_fees}` : 'Contact for Info';
 
   return (
@@ -63,3 +63,4 @@ const CourseDetailsModal = ({ course, isOpen, onClose }) => {
 };
 
 export default CourseDetailsModal;
+
