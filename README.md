@@ -1,8 +1,24 @@
-# VWings24x7 - Student Aviation App
+# 🎓 VWings24x7 - Student App
 
-A comprehensive, responsive web application designed for aviation students to manage their educational journey, including courses, classrooms, fees, notifications, and more. Built with React and Vite, it offers a premium, engaging user interface.
+<div align="center">
+  <img src="public/assets/Favicon.jpeg" alt="VWings24x7 Logo" width="120" />
+</div>
 
-*(Note: This is the web counterpart to the Flutter mobile application)*
+<p align="center">
+  <strong>A comprehensive, responsive web application designed for aviation students to manage their educational journey.</strong>
+</p>
+
+<p align="center">
+  <a href="#-features">Features</a> •
+  <a href="#%EF%B8%8F-technology-stack">Tech Stack</a> •
+  <a href="#-getting-started">Getting Started</a> •
+  <a href="#-docker-setup">Docker Setup</a> •
+  <a href="#-project-structure">Project Structure</a>
+</p>
+
+---
+
+*(Note: This is the web counterpart to the VWings24x7 Flutter mobile application)*
 
 ## 🚀 Features
 
@@ -15,21 +31,23 @@ A comprehensive, responsive web application designed for aviation students to ma
 - **Ads Integration:** Monetization through targeted advertisements.
 - **Account Management:** Profile settings and personal information.
 - **Responsive Design**: Fully optimized for desktop, tablet, and mobile viewing.
+- **PWA Ready**: Includes manifest and service worker configuration for offline and installable web app experience.
 
 ## 🛠️ Technology Stack
 
 - **Framework**: [React 19](https://react.dev/)
-- **Build Tool**: [Vite](https://vitejs.dev/)
+- **Build Tool**: [Vite 8](https://vitejs.dev/)
 - **Routing**: [React Router v7](https://reactrouter.com/)
 - **Animations**: [Framer Motion](https://www.framer.com/motion/)
 - **HTTP Client**: [Axios](https://axios-http.com/)
 - **Icons**: [Lucide React](https://lucide.dev/)
+- **Styling**: Vanilla CSS with customized theming
 
 ## 💻 Getting Started
 
 ### Prerequisites
 
-Ensure you have [Node.js](https://nodejs.org/) installed on your machine.
+Ensure you have [Node.js](https://nodejs.org/) (v20+ recommended) installed on your machine.
 
 ### Installation
 
@@ -44,7 +62,7 @@ Ensure you have [Node.js](https://nodejs.org/) installed on your machine.
    npm install
    ```
 
-### Running the Application
+### Running the Application Locally
 
 To start the local development server:
 
@@ -70,9 +88,52 @@ To preview the production build locally:
 npm run preview
 ```
 
-## 📝 Scripts
+## 🐳 Docker Setup
 
-- `npm run dev`: Starts the development server.
-- `npm run build`: Builds the app for production.
+This project includes Docker support for easy deployment and isolation.
+
+### Build and Run with Docker Compose (Recommended)
+
+```bash
+docker-compose up -d --build
+```
+
+The application preview server will be accessible at `http://localhost:8008`.
+
+### Using Dockerfile Manually
+
+1. **Build the image**:
+   ```bash
+   docker build -f Dockerfile.frontend -t vwings-student-app .
+   ```
+
+2. **Run the container**:
+   ```bash
+   docker run -p 8008:8008 vwings-student-app
+   ```
+
+## 📂 Project Structure
+
+```text
+VWings24x7-Student-App/
+├── public/                 # Static assets and PWA manifest
+├── src/                    # Source code
+│   ├── components/         # Reusable React components
+│   ├── screens/            # Application views/pages
+│   ├── App.jsx             # Main application component
+│   ├── main.jsx            # Entry point
+│   ├── index.css           # Global styles
+│   └── theme.js            # Theming configurations
+├── index.html              # HTML template
+├── package.json            # Project dependencies and scripts
+├── vite.config.js          # Vite configuration
+├── Dockerfile.frontend     # Docker configuration
+└── docker-compose.yml      # Docker Compose configuration
+```
+
+## 📝 Scripts Reference
+
+- `npm run dev`: Starts the Vite development server.
+- `npm run build`: Compiles and bundles the app for production.
 - `npm run lint`: Runs ESLint to check for code quality issues.
-- `npm run preview`: Previews the built production app locally.
+- `npm run preview`: Starts a local server to preview the built production app.
