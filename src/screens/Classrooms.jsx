@@ -52,7 +52,7 @@ const Classrooms = () => {
       fetchMessages();
 
       // Connect to WebSocket
-      ws.current = new WebSocket(`ws://localhost:8000/api/classrooms/ws/${activeClass.class_id}/chat?user_id=${studentId}&role=student`);
+      ws.current = new WebSocket(`ws://appbackend.vwings247.me/api/classrooms/ws/${activeClass.class_id}/chat?user_id=${studentId}&role=student`);
 
       ws.current.onmessage = (event) => {
         const data = JSON.parse(event.data);
