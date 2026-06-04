@@ -7,7 +7,7 @@ import CarouselCard from '../components/CarouselCard';
 import AdBanner from '../components/AdBanner';
 import { useAuth } from '../AuthContext';
 
-const API_BASE = 'http://localhost:8000';
+const API_BASE = 'https://appbackend.vwings247.me';
 
 const Dashboard = () => {
   const { user } = useAuth();

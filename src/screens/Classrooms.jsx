@@ -21,7 +21,7 @@ const Classrooms = () => {
   useEffect(() => {
     const fetchClassrooms = async () => {
       try {
-        const response = await fetch(`http://localhost:8000/api/classrooms/get/by-student/${studentId}`);
+        const response = await fetch(`https://appbackend.vwings247.me/api/classrooms/get/by-student/${studentId}`);
         if (response.ok) {
           const data = await response.json();
           setClassrooms(data);
@@ -40,7 +40,7 @@ const Classrooms = () => {
       // Fetch existing messages (bypassing student membership check for demo by using the general endpoint if needed, or student endpoint)
       const fetchMessages = async () => {
         try {
-          const response = await fetch(`http://localhost:8000/api/classrooms/student/${activeClass.class_id}/messages?student_id=${studentId}`);
+          const response = await fetch(`https://appbackend.vwings247.me/api/classrooms/student/${activeClass.class_id}/messages?student_id=${studentId}`);
           if (response.ok) {
             const data = await response.json();
             setChatHistory(data);
@@ -83,7 +83,7 @@ const Classrooms = () => {
       const formData = new FormData();
       formData.append('file', attachment);
       try {
-        const res = await fetch('http://localhost:8000/api/classrooms/upload-attachment', {
+        const res = await fetch('https://appbackend.vwings247.me/api/classrooms/upload-attachment', {
           method: 'POST',
           body: formData
         });
@@ -147,13 +147,13 @@ const Classrooms = () => {
                 <p style={{ margin: '0 0 4px 0', fontSize: '0.8rem', fontWeight: 'bold', color: isMe ? 'white' : 'var(--primary)' }}>{isMe ? 'You' : msg.sender_role || 'Instructor'}</p>
 
                 {msg.attachment_url && msg.attachment_type === 'image' && (
-                  <img src={`http://localhost:8000/${msg.attachment_url.replace(/\\/g, '/')}`} alt="attachment" style={{ maxWidth: '100%', borderRadius: '8px', marginBottom: '8px' }} />
+                  <img src={`https://appbackend.vwings247.me/${msg.attachment_url.replace(/\\/g, '/')}`} alt="attachment" style={{ maxWidth: '100%', borderRadius: '8px', marginBottom: '8px' }} />
                 )}
                 {msg.attachment_url && msg.attachment_type === 'pdf' && (
-                  <a href={`http://localhost:8000/${msg.attachment_url.replace(/\\/g, '/')}`} target="_blank" rel="noopener noreferrer" style={{ display: 'block', marginBottom: '8px', color: isMe ? 'white' : 'var(--primary)', textDecoration: 'underline' }}>View PDF Document</a>
+                  <a href={`https://appbackend.vwings247.me/${msg.attachment_url.replace(/\\/g, '/')}`} target="_blank" rel="noopener noreferrer" style={{ display: 'block', marginBottom: '8px', color: isMe ? 'white' : 'var(--primary)', textDecoration: 'underline' }}>View PDF Document</a>
                 )}
                 {msg.attachment_url && msg.attachment_type === 'file' && (
-                  <a href={`http://localhost:8000/${msg.attachment_url.replace(/\\/g, '/')}`} target="_blank" rel="noopener noreferrer" style={{ display: 'block', marginBottom: '8px', color: isMe ? 'white' : 'var(--primary)', textDecoration: 'underline' }}>Download File</a>
+                  <a href={`https://appbackend.vwings247.me/${msg.attachment_url.replace(/\\/g, '/')}`} target="_blank" rel="noopener noreferrer" style={{ display: 'block', marginBottom: '8px', color: isMe ? 'white' : 'var(--primary)', textDecoration: 'underline' }}>Download File</a>
                 )}
 
                 <p style={{ margin: 0 }}>{msg.content || msg.text}</p>

@@ -22,7 +22,7 @@ import GlobalSearch from './components/GlobalSearch';
 
 import { AuthContext, useAuth } from './AuthContext';
 
-const API_BASE = 'http://localhost:8000';
+const API_BASE = 'https://appbackend.vwings247.me';
 
 // ─── Sidebar ─────────────────────────────────────────────────────────────────
 const Sidebar = ({ handleLogout, handleInstallApp, showInstallButton, isMobileMenuOpen, setIsMobileMenuOpen }) => {
